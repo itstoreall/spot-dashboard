@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 
 const App = () => {
   useEffect(() => {
+    console.log('app');
     gu.updatePrices();
     const int = setInterval(() => gu.updatePrices(), 60000);
     return () => {
