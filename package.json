@@ -2,6 +2,7 @@
   "name": "spot-dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://itstoreall.github.io/spot-dashboard",
   "dependencies": {
     "@preact/signals-react": "^2.0.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -22,7 +23,9 @@
     "dev": "PORT=3399 react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "npx eslint ./src"
+    "lint": "npx eslint ./src",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +48,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "eslint": "^8.57.0",
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "gh-pages": "^6.1.1"
   }
 }
