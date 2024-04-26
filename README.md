@@ -1,1 +1,1 @@
-# spot-dashboard
+# Spot Dashboard
