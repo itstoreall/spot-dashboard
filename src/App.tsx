@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import * as gu from './utils/global';
 import Dashboard from './components/Dashboard';
 
+// const delay = 60000 // 1 min
+const delay = 600000; // 10 min
+
 const App = () => {
   useEffect(() => {
-    console.log('app');
     gu.updatePrices();
-    const int = setInterval(() => gu.updatePrices(), 60000);
+    const int = setInterval(() => gu.updatePrices(), delay);
     return () => {
       clearInterval(int);
     };
