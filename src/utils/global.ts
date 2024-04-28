@@ -5,9 +5,13 @@ import * as api from '../api';
 
 const appEnv = process.env.REACT_APP_ENVIRONMENT;
 
+const { btc, eth, ltc } = state.tokens;
+const { production, develop } = gc.system.appEnv;
 const { date, time, dateAndTime } = gc.date.format;
 
 export const loger = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
+
+// ------ Date:
 
 const setIntDateFormat = (format?: string) => {
   switch (format) {
@@ -25,10 +29,7 @@ const setIntDateFormat = (format?: string) => {
 export const getIntlDate = (format?: string) =>
   new Intl.DateTimeFormat('en-GB', setIntDateFormat(format)).format(new Date());
 
-// ------ Update token prices:
-
-const { btc, eth, ltc } = state.tokens;
-const { production, develop } = gc.system.appEnv;
+// ------ Prices:
 
 export const updatePrices = async () => {
   switch (appEnv) {
