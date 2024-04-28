@@ -1,15 +1,23 @@
-.tokenList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+@import '../../styles/imports';
 
-  > li.tokenItem {
-    > span {
-      font-size: 12px;
-      text-transform: uppercase;
+.tokenListBlock {
+  @extend %extends-hide-scrollbar;
+  overflow-y: scroll;
 
-      // &.symbol {}
-      // &.price {}
+  > ul.tokenList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: palevioletred;
+
+    > li.tokenItem {
+      > span {
+        font-size: 12px;
+        text-transform: uppercase;
+
+        // &.symbol {}
+        // &.price {}
+      }
     }
   }
 }

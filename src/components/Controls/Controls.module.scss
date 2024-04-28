@@ -1,0 +1,33 @@
+@import '../../styles/imports';
+
+.controlsBlock {
+  @extend %extends-hide-scrollbar;
+  // position: fixed;
+  // top: 0;
+  min-width: 100%;
+  // min-height: 100svh;
+  background-color: red;
+  overflow-x: scroll;
+
+  .controlsContent {
+    min-width: 100%;
+    // min-height: 100svh;
+    background-color: teal;
+
+    .controlsList {
+      // @extend %extends-hide-scrollbar;
+      display: grid;
+      // grid-template-rows: 1fr auto;
+      // gap: 30px;
+      width: 100%;
+      // height: 100svh;
+      // overflow-x: scroll;
+
+      .controlsItem {
+        background-color: palevioletred;
+        // height: 300px;
+        background-color: yellowgreen;
+      }
+    }
+  }
+}

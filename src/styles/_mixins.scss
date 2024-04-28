@@ -1,0 +1,103 @@
+@import './extends';
+@import './vars';
+
+@mixin media-screen($var, $w) {
+  @if $var == 'min' {
+    @media screen and (min-width: $w) {
+      @content;
+    }
+  } @else if $var == 'max' {
+    @media screen and (max-width: $w) {
+      @content;
+    }
+  }
+}
+
+@mixin media-screen-range($minWidth, $maxWidth) {
+  @media screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+// ------ MD Standart Mobile:
+
+@mixin md-standart-mobile() {
+  > div {
+    font-size: 14px;
+
+    h2 {
+      font-size: 26px;
+    }
+
+    h3 {
+      font-size: 22px;
+    }
+
+    > ul,
+    ol,
+    blockquote {
+      padding-left: 15px;
+    }
+
+    > p > img {
+      margin: 0 -15px;
+      min-width: 100vw;
+    }
+  }
+}
+
+// ------ H1 Title Standart (responsive addition to the extantion):
+
+@mixin article-h1-title-standart-responsive() {
+  @include basic-palette-white(bg, 0.7);
+
+  @include media-screen('min', $mobile - 30) {
+    font-size: 18px;
+  }
+
+  @include media-screen('min', $mobile) {
+    font-size: 20px;
+  }
+
+  @include media-screen('min', $tablet) {
+    padding: 15px 25px;
+    width: 70%;
+    font-size: 34px;
+    line-height: 1.4;
+  }
+
+  @include media-screen('min', $desktop) {
+    font-size: 42px;
+  }
+}
+
+// ------ Color and Gradient:
+
+@mixin basic-palette-gradiend($opacity: 1, $theme: '') {
+  background: linear-gradient(
+    320deg,
+    rgba(194, 79, 182, $opacity) 6.59%,
+    rgba(63, 81, 184, $opacity) 94.04%
+  );
+  @if $theme == 'light' {
+    background-color: $colorWhite;
+  } @else if $theme == 'dark' {
+    background-color: $colorRed;
+  }
+}
+
+@mixin basic-palette-black($var, $value: 1) {
+  @if $var == 'bg' {
+    background-color: rgba(0, 0, 0, $value);
+  } @else if $var == 'color' {
+    color: rgba(0, 0, 0, $value);
+  }
+}
+
+@mixin basic-palette-white($var, $value: 1) {
+  @if $var == 'bg' {
+    background-color: rgba(255, 255, 255, $value);
+  } @else if $var == 'color' {
+    color: rgba(255, 255, 255, $value);
+  }
+}

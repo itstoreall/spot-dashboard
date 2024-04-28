@@ -1,0 +1,29 @@
+$mobile: 390px;
+$tablet: 768px;
+$desktop: 1024px;
+$max: 1440px;
+
+// ------ Color:
+
+$colorWhite: white;
+$colorBlack: black;
+
+// ---
+
+$colorOne: rgba(194, 79, 182, 1);
+$colorTwo: rgba(63, 81, 184, 1);
+
+// ---
+
+$mainColor: $colorBlack;
+
+$ease0s: 0s ease;
+$ease03s: 0.3s ease;
+$ease03s03s: 0.3s ease 0.3s;
+$ease03s01s: 0.3s ease 0.1s;
+
+// ------ Global:
+
+$shadowCard: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+$viewportHeight: 100svh;
