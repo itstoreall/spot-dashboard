@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import * as gu from './utils/global';
 import Dashboard from './components/Dashboard';
 
-const delay = process.env.REACT_APP_UPDATE_DELAY;
+const delay = Number(process.env.REACT_APP_UPDATE_DELAY || 600000);
 
 const App = () => {
   useEffect(() => {
     gu.updatePrices();
-    const int = setInterval(() => gu.updatePrices(), Number(delay) || 600000);
+    const int = setInterval(() => gu.updatePrices(), delay);
     return () => {
       clearInterval(int);
     };
