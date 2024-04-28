@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/spot-dashboard/static/css/main.06e30d38.css",
-    "main.js": "/spot-dashboard/static/js/main.a1d1834a.js",
+    "main.js": "/spot-dashboard/static/js/main.1c6d5d71.js",
     "index.html": "/spot-dashboard/index.html",
     "main.06e30d38.css.map": "/spot-dashboard/static/css/main.06e30d38.css.map",
-    "main.a1d1834a.js.map": "/spot-dashboard/static/js/main.a1d1834a.js.map"
+    "main.1c6d5d71.js.map": "/spot-dashboard/static/js/main.1c6d5d71.js.map"
   },
   "entrypoints": [
     "static/css/main.06e30d38.css",
-    "static/js/main.a1d1834a.js"
+    "static/js/main.1c6d5d71.js"
   ]
 }
