@@ -6,7 +6,7 @@ const appEnv = process.env.REACT_APP_ENVIRONMENT;
 
 const { date, time, dateAndTime } = gc.date.format;
 
-export const logApp = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
+export const loger = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
 
 const setIntDateFormat = (format?: string) => {
   switch (format) {
@@ -27,12 +27,13 @@ export const getIntlDate = (format?: string) =>
 // ------ Update token prices:
 
 const { btc, eth, ltc } = state.tokens;
-const { production, develop } = gc.system.appEnv;
+const { production, develop, local } = gc.system.appEnv;
 
 export const updatePrices = async () => {
   switch (appEnv) {
     case production:
-      logApp(`upd (${appEnv}) ${getIntlDate(time.label)}`);
+    case develop:
+      loger(`upd (${appEnv}) ${getIntlDate(time.label)}`);
       const prices = await api.getPrices();
       if (!prices || typeof prices === 'string') return;
       const { bitcoin, ethereum, litecoin } = prices;
@@ -42,12 +43,12 @@ export const updatePrices = async () => {
       ltc.value = litecoin.usd;
       break;
 
-    case develop:
-      logApp(`upd (${appEnv}) ${getIntlDate(time.label)}`);
+    case local:
+      loger(`upd (${appEnv}) ${getIntlDate(time.label)}`);
       break;
 
     default:
-      logApp(`ERROR in updatePrices, appEnv: ${appEnv}`);
+      loger(`ERROR in updatePrices, appEnv: ${appEnv}`);
       break;
   }
 };

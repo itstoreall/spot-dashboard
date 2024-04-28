@@ -1,7 +1,8 @@
 export const system = {
   appEnv: {
     production: 'production',
-    develop: 'develop'
+    develop: 'develop',
+    local: 'local'
   }
 };
 
