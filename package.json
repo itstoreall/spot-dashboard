@@ -2,7 +2,7 @@
   "name": "spot-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://itstoreall.github.io/spot-dashboard",
+  "homepage": "https://spot.storeall.com.ua",
   "dependencies": {
     "@preact/signals-react": "^2.0.1",
     "@testing-library/jest-dom": "^5.17.0",

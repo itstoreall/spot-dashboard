@@ -1,3 +1,4 @@
+https://itstoreall.github.io/spot-dashboard
 yarn dev
 yarn build
 npm run deploy
