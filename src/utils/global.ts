@@ -27,13 +27,12 @@ export const getIntlDate = (format?: string) =>
 // ------ Update token prices:
 
 const { btc, eth, ltc } = state.tokens;
-const { production, develop, local } = gc.system.appEnv;
+const { production, develop } = gc.system.appEnv;
 
 export const updatePrices = async () => {
   switch (appEnv) {
     case production:
-    case develop:
-      loger(`upd (${appEnv}) ${getIntlDate(time.label)}`);
+      loger(`${appEnv} ${getIntlDate(time.label)}`);
       const prices = await api.getPrices();
       if (!prices || typeof prices === 'string') return;
       const { bitcoin, ethereum, litecoin } = prices;
@@ -43,8 +42,8 @@ export const updatePrices = async () => {
       ltc.value = litecoin.usd;
       break;
 
-    case local:
-      loger(`upd (${appEnv}) ${getIntlDate(time.label)}`);
+    case develop:
+      loger(`${appEnv} ${getIntlDate(time.label)}`);
       break;
 
     default:
