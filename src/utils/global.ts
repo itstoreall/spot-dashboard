@@ -1,4 +1,5 @@
 import * as gc from '../config/global';
+// import * as gt from '../types/global';
 import * as state from '../state';
 import * as api from '../api';
 
@@ -11,13 +12,13 @@ export const loger = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
 const setIntDateFormat = (format?: string) => {
   switch (format) {
     case date.label:
-      return date.value as Intl.DateTimeFormatOptions;
+      return date.value;
 
     case time.label:
-      return time.value as Intl.DateTimeFormatOptions;
+      return time.value;
 
     default:
-      return dateAndTime.value as Intl.DateTimeFormatOptions;
+      return dateAndTime.value;
   }
 };
 
@@ -32,7 +33,7 @@ const { production, develop } = gc.system.appEnv;
 export const updatePrices = async () => {
   switch (appEnv) {
     case production:
-      loger(`${appEnv} ${getIntlDate(time.label)}`);
+      loger(`upd ${getIntlDate(time.label)} ${appEnv.slice(0, 4)}`);
       const prices = await api.getPrices();
       if (!prices || typeof prices === 'string') return;
       const { bitcoin, ethereum, litecoin } = prices;
@@ -43,7 +44,7 @@ export const updatePrices = async () => {
       break;
 
     case develop:
-      loger(`${appEnv} ${getIntlDate(time.label)}`);
+      loger(`upd ${getIntlDate(time.label)} ${appEnv.slice(0, 3)}`);
       break;
 
     default:

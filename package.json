@@ -24,7 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "npx eslint ./src",
-    "predeploy": "yarn build",
+    "predeploy": "REACT_APP_UPDATE_DELAY=600000 REACT_APP_ENVIRONMENT=production yarn build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

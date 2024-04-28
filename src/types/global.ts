@@ -9,3 +9,5 @@ export enum Symbol {
   ETH = 'eth',
   LTC = 'ltc'
 }
+
+export type IntelDateTimeFormat = Intl.DateTimeFormatOptions;

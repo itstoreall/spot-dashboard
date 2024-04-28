@@ -1,3 +1,5 @@
+import { IntelDateTimeFormat } from '../types/global';
+
 export const system = {
   appEnv: {
     production: 'production',
@@ -15,7 +17,7 @@ export const date = {
         month: 'long',
         year: 'numeric',
         timeZone: 'Europe/Kiev'
-      }
+      } as IntelDateTimeFormat
     },
     time: {
       label: 'time',
@@ -24,7 +26,7 @@ export const date = {
         minute: '2-digit',
         second: '2-digit',
         timeZone: 'Europe/Kiev'
-      }
+      } as IntelDateTimeFormat
     },
     dateAndTime: {
       label: 'dateAndTime',
@@ -36,7 +38,7 @@ export const date = {
         month: 'long',
         year: 'numeric',
         timeZone: 'Europe/Kiev'
-      }
+      } as IntelDateTimeFormat
     }
   }
 };
