@@ -1,13 +1,14 @@
 @import '../../styles/imports';
 
 .controlsBlock {
-  @extend %extends-hide-scrollbar;
-  // position: fixed;
-  // top: 0;
+  // @extend %extends-hide-scrollbar;
+  position: fixed;
+  bottom: 0;
   min-width: 100%;
+  padding-bottom: 30px;
   // min-height: 100svh;
   background-color: red;
-  overflow-x: scroll;
+  // overflow-x: scroll;
 
   .controlsContent {
     min-width: 100%;
@@ -16,7 +17,6 @@
 
     .controlsList {
       // @extend %extends-hide-scrollbar;
-      display: grid;
       // grid-template-rows: 1fr auto;
       // gap: 30px;
       width: 100%;
@@ -26,7 +26,6 @@
       .controlsItem {
         background-color: palevioletred;
         // height: 300px;
-        background-color: yellowgreen;
       }
     }
   }

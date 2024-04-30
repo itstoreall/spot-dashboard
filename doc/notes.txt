@@ -2,3 +2,17 @@ https://itstoreall.github.io/spot-dashboard
 yarn dev
 yarn build
 npm run deploy
+
+------ Add token:
+
+1. Add token (api/config)
+2. Add new state (symbol) to the tokens object (state.index.ts)
+3. Add two enums Token and Symbol (gt)
+4. Add new symbol to the tokens array (components/TokenList/config)
+5. Add token to the fetchPrices (gu)
+6. Add a condition to the handleList fn (components/TokenList/utils):
+
+: symbol === gt.Symbol.SOL
+    ? state.tokens.sol
+
+7. 

@@ -1,6 +1,8 @@
-.dashboardBlock {
-  display: grid;
-  // grid-template-rows: 1fr auto;
-  // grid-template-rows: 500px auto;
-  grid-template-rows: calc(100svh - 100px) 100px;
-}
+@import '../../styles/imports';
+
+// .dashboardBlock {
+//   // display: grid;
+//   // grid-template-rows: 1fr auto;
+//   // grid-template-rows: 500px auto;
+//   // grid-template-rows: calc(100svh - 100px) 100px;
+// }

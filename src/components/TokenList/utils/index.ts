@@ -8,5 +8,11 @@ export const hanbleList = (symbol: gt.Symbol) => {
     ? state.tokens.eth
     : symbol === gt.Symbol.LTC
     ? state.tokens.ltc
+    : symbol === gt.Symbol.AVAX
+    ? state.tokens.avax
+    : symbol === gt.Symbol.SOL
+    ? state.tokens.sol
+    : symbol === gt.Symbol.NEAR
+    ? state.tokens.near
     : null;
 };

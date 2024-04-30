@@ -3,8 +3,7 @@ import { IntelDateTimeFormat } from '../types/global';
 export const system = {
   appEnv: {
     production: 'production',
-    develop: 'develop',
-    local: 'local'
+    develop: 'develop'
   }
 };
 

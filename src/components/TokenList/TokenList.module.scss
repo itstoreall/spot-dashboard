@@ -2,21 +2,73 @@
 
 .tokenListBlock {
   @extend %extends-hide-scrollbar;
+  height: $viewportHeight;
   overflow-y: scroll;
 
   > ul.tokenList {
     list-style: none;
-    padding: 0;
+    padding: 0 10px;
     margin: 0;
-    background-color: palevioletred;
+    // background-color: palevioletred;
 
     > li.tokenItem {
-      > span {
-        font-size: 12px;
-        text-transform: uppercase;
+      // background-color: green;
 
-        // &.symbol {}
-        // &.price {}
+      &:not(:last-child) {
+        // margin-bottom: 5px;
+        border-bottom: 1px solid $colorGreyDark;
+      }
+
+      > ul.itemRowList {
+        display: flex;
+
+        > li {
+          display: flex;
+          align-items: center;
+          height: 40px;
+          // background-color: red;
+
+          &:not(:first-child) {
+            justify-content: flex-end;
+          }
+
+          &.symbol {
+            min-width: 65px;
+          }
+
+          &.price {
+            width: 100%;
+            min-width: 85px;
+            // background-color: teal;
+          }
+
+          &.buy {
+            width: 100%;
+            min-width: 85px;
+            // background-color: teal;
+          }
+
+          &.sell {
+            width: 100%;
+            min-width: 85px;
+            // background-color: teal;
+          }
+
+          &.settings {
+            width: 100%;
+            justify-content: center;
+            // background-color: teal;
+          }
+
+          > span {
+            font-size: 14px;
+            // color: rgb(252, 252, 252);
+            text-transform: uppercase;
+
+            // &.symbol {}
+            // &.price {}
+          }
+        }
       }
     }
   }
