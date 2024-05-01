@@ -1,6 +1,11 @@
 import { signal } from '@preact/signals-react';
+import * as gt from '../types/global';
 
-export const tokens = {
+const system = {
+  status: signal('')
+};
+
+const tokens = {
   btc: signal(0),
   eth: signal(0),
   ltc: signal(0),
@@ -8,3 +13,9 @@ export const tokens = {
   sol: signal(0),
   near: signal(0)
 };
+
+const actions = signal<gt.ActionData[] | null>(null);
+
+const state = { system, tokens, actions };
+
+export default state;

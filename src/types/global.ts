@@ -16,4 +16,23 @@ export enum Symbol {
   NEAR = 'near'
 }
 
+export enum Status {
+  INIT = 'init',
+  PENDING = 'pending',
+  ACTIVE = 'active',
+  ERROR = 'error'
+}
+
+export enum Process {
+  BUY = 'buy',
+  SELL = 'sell'
+}
+
 export type IntelDateTimeFormat = Intl.DateTimeFormatOptions;
+
+export type Action = { [key: string]: number };
+
+export type ActionData = {
+  token: Symbol;
+  action: Action[];
+};

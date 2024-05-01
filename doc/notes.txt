@@ -15,4 +15,4 @@ npm run deploy
 : symbol === gt.Symbol.SOL
     ? state.tokens.sol
 
-7. 
+------ 

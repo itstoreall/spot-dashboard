@@ -32,6 +32,15 @@
             justify-content: flex-end;
           }
 
+          > span {
+            font-size: 14px;
+            // color: rgb(252, 252, 252);
+            text-transform: uppercase;
+
+            // &.symbol {}
+            // &.price {}
+          }
+
           &.symbol {
             min-width: 65px;
           }
@@ -42,13 +51,13 @@
             // background-color: teal;
           }
 
-          &.buy {
+          &.action {
             width: 100%;
             min-width: 85px;
             // background-color: teal;
           }
 
-          &.sell {
+          &.percent {
             width: 100%;
             min-width: 85px;
             // background-color: teal;
@@ -56,17 +65,28 @@
 
           &.settings {
             width: 100%;
-            justify-content: center;
+            // justify-content: center;
             // background-color: teal;
+
+            > span {
+              @extend %extends-flex-xy-center;
+              width: 40px;
+              height: 100%;
+              // background-color: teal;
+
+              > svg {
+                width: 14px;
+                height: 14px;
+              }
+            }
           }
 
-          > span {
-            font-size: 14px;
-            // color: rgb(252, 252, 252);
-            text-transform: uppercase;
-
-            // &.symbol {}
-            // &.price {}
+          &:hover {
+            &.settings {
+              > span {
+                cursor: pointer;
+              }
+            }
           }
         }
       }

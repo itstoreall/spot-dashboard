@@ -1,5 +1,5 @@
 import * as gt from '../../../types/global';
-import * as state from '../../../state';
+import state from '../../../state';
 
 export const hanbleList = (symbol: gt.Symbol) => {
   return symbol === gt.Symbol.BTC

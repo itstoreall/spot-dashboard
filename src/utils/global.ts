@@ -1,17 +1,38 @@
 import * as gc from '../config/global';
-// import * as gt from '../types/global';
-import * as state from '../state';
+import * as gt from '../types/global';
 import * as api from '../api';
+import state from '../state';
 
 const appEnv = process.env.REACT_APP_ENVIRONMENT;
 
 const { btc, eth, ltc, avax, sol, near } = state.tokens;
-const { production, develop } = gc.system.appEnv;
 const { date, time, dateAndTime } = gc.date.format;
+const { production, develop } = gc.system.appEnv;
 
 export const loger = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
 
-// ------ Date:
+// ------ Status:
+
+export const status = {
+  [gt.Status.INIT]: {
+    is: () => state.system.status.value === gt.Status.INIT,
+    set: () => (state.system.status.value = gt.Status.INIT)
+  },
+  [gt.Status.PENDING]: {
+    is: () => state.system.status.value === gt.Status.PENDING,
+    set: () => (state.system.status.value = gt.Status.PENDING)
+  },
+  [gt.Status.ACTIVE]: {
+    is: () => state.system.status.value === gt.Status.ACTIVE,
+    set: () => (state.system.status.value = gt.Status.ACTIVE)
+  },
+  [gt.Status.ERROR]: {
+    is: () => state.system.status.value === gt.Status.ERROR,
+    set: () => (state.system.status.value = gt.Status.ERROR)
+  }
+};
+
+// ------ Date and Time:
 
 const setIntDateFormat = (format?: string) => {
   switch (format) {
@@ -29,7 +50,13 @@ const setIntDateFormat = (format?: string) => {
 export const getIntlDate = (format?: string) =>
   new Intl.DateTimeFormat('en-GB', setIntDateFormat(format)).format(new Date());
 
-// ------ Prices:
+// ------ Data:
+
+export const getInitData = async () => {
+  const isPrices = await updatePrices();
+  const isActions = await updateActions();
+  isPrices && isActions && status.init.set();
+};
 
 const fetchPrices = async (appEnv: string) => {
   loger(`upd ${getIntlDate(time.label)} ${appEnv.slice(0, 4)}`);
@@ -62,11 +89,19 @@ export const updatePrices = async () => {
       avax.value = 32.08;
       sol.value = 125.08;
       near.value = 6.08;
-      break;
+      return true;
     // */
 
     default:
       loger(`ERROR in updatePrices, appEnv: ${appEnv}`);
       break;
   }
+};
+
+export const updateActions = async () => {
+  const actions = await api.getActions();
+  if (actions) {
+    state.actions.value = await api.getActions();
+    return true;
+  } else return false;
 };
