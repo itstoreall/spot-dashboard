@@ -77,7 +77,7 @@ export const updatePrices = async () => {
     // case develop:
     case production:
       await fetchPrices(appEnv);
-      break;
+      return true;
 
     // /*
     case develop:
