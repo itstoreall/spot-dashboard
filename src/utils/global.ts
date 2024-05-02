@@ -62,17 +62,26 @@ export const getInitData = async () => {
 const fetchPrices = async (appEnv: string) => {
   const prices = await api.getPrices();
   if (!prices || typeof prices === 'string') return;
-  // const date = getIntlDate(time.label);
-  // loger(`upd ${date} ${appEnv.slice(0, 4)}`);
 
-  btc.value = prices.bitcoin.usd;
-  eth.value = prices.ethereum.usd;
-  ltc.value = prices.litecoin.usd;
-  avax.value = prices['avalanche-2'].usd;
-  sol.value = prices.solana.usd;
-  near.value = prices.near.usd;
+  switch (appEnv) {
+    case 'production':
+      btc.value = prices.bitcoin.usd;
+      eth.value = prices.ethereum.usd;
+      ltc.value = prices.litecoin.usd;
+      avax.value = prices['avalanche-2'].usd;
+      sol.value = prices.solana.usd;
+      near.value = prices.near.usd;
+      break;
 
-  // update.value = date;
+    default:
+      btc.value = 60000.08;
+      eth.value = 3000.08;
+      ltc.value = 80.08;
+      avax.value = 40.08;
+      sol.value = 130.08;
+      near.value = 5.08;
+      break;
+  }
 };
 
 export const updatePrices = async () => {
@@ -88,15 +97,8 @@ export const updatePrices = async () => {
 
     // /*
     case develop:
+      await fetchPrices(appEnv);
       loger(`upd ${updTime} ${appEnv.slice(0, 3)}`);
-
-      btc.value = 60000.08;
-      eth.value = 3000.08;
-      ltc.value = 80.08;
-      avax.value = 40.08;
-      sol.value = 130.08;
-      near.value = 5.08;
-
       update.value = updTime;
       return true;
     // */
