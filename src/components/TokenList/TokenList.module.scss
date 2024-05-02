@@ -1,9 +1,7 @@
 @import '../../styles/imports';
 
 .tokenListBlock {
-  @extend %extends-hide-scrollbar;
-  height: $viewportHeight;
-  overflow-y: scroll;
+  padding: 50px 0;
 
   > ul.tokenList {
     list-style: none;

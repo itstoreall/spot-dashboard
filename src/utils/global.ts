@@ -8,6 +8,7 @@ const appEnv = process.env.REACT_APP_ENVIRONMENT;
 const { btc, eth, ltc, avax, sol, near } = state.tokens;
 const { date, time, dateAndTime } = gc.date.format;
 const { production, develop } = gc.system.appEnv;
+const { update } = state.system;
 
 export const loger = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
 
@@ -59,10 +60,10 @@ export const getInitData = async () => {
 };
 
 const fetchPrices = async (appEnv: string) => {
-  loger(`upd ${getIntlDate(time.label)} ${appEnv.slice(0, 4)}`);
   const prices = await api.getPrices();
-  // console.log(prices);
   if (!prices || typeof prices === 'string') return;
+  // const date = getIntlDate(time.label);
+  // loger(`upd ${date} ${appEnv.slice(0, 4)}`);
 
   btc.value = prices.bitcoin.usd;
   eth.value = prices.ethereum.usd;
@@ -70,25 +71,33 @@ const fetchPrices = async (appEnv: string) => {
   avax.value = prices['avalanche-2'].usd;
   sol.value = prices.solana.usd;
   near.value = prices.near.usd;
+
+  // update.value = date;
 };
 
 export const updatePrices = async () => {
+  const updTime = getIntlDate(time.label);
+
   switch (appEnv) {
     // case develop:
     case production:
       await fetchPrices(appEnv);
+      loger(`upd ${updTime} ${appEnv.slice(0, 4)}`);
+      update.value = updTime;
       return true;
 
     // /*
     case develop:
-      loger(`upd ${getIntlDate(time.label)} ${appEnv.slice(0, 3)}`);
+      loger(`upd ${updTime} ${appEnv.slice(0, 3)}`);
 
-      btc.value = 60893.08;
-      eth.value = 2995.08;
-      ltc.value = 78.08;
-      avax.value = 32.08;
-      sol.value = 125.08;
-      near.value = 6.08;
+      btc.value = 60000.08;
+      eth.value = 3000.08;
+      ltc.value = 80.08;
+      avax.value = 40.08;
+      sol.value = 130.08;
+      near.value = 5.08;
+
+      update.value = updTime;
       return true;
     // */
 

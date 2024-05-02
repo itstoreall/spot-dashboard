@@ -1,3 +1,10 @@
 @import '../../styles/imports';
 
-// .dashboardBlock {} // *
+main.dashboardBlock {
+  @extend %extends-hide-scrollbar;
+  position: fixed;
+  width: 100%;
+  height: $viewportHeight;
+  overflow-y: scroll;
+  z-index: 10;
+}

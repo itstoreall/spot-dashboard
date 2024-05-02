@@ -2,7 +2,8 @@ import { signal } from '@preact/signals-react';
 import * as gt from '../types/global';
 
 const system = {
-  status: signal('')
+  status: signal(''),
+  update: signal('')
 };
 
 const tokens = {
