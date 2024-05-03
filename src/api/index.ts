@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import * as gt from '../types/global';
+// import * as gt from '../types/global';
+import * as ge from '../enum/global';
 import * as c from './config';
 import * as t from './types';
 
@@ -10,47 +11,43 @@ export const getPrices = async () => {
   return makeRequest(config);
 };
 
-// export const getAveragePrice = (actions: { [key: string]: number }[]) => {
-//   const sum = actions.reduce((acc, curr) => acc + curr.buy, 0);
-//   const average = sum / actions.length;
-//   console.log('average', average);
-//   return average;
-// };
-
-// getAveragePrice([{ buy: 15555 }, { buy: 25000 }]);
-
 export const getActions = async () => {
-  // const config = { method: t.Method.GET, url: c.url };
   return [
     {
-      token: gt.Symbol.BTC,
+      token: ge.Symbol.BTC,
+      action: ge.Process.BUY,
       average_price: 20277.5,
-      actions: [{ [gt.Process.BUY]: 15555 }, { [gt.Process.BUY]: 25000 }]
+      prices: [15555, 25000]
     },
     {
-      token: gt.Symbol.ETH,
+      token: ge.Symbol.ETH,
+      action: ge.Process.SELL,
       average_price: 1500,
-      actions: [{ [gt.Process.SELL]: 1500 }]
+      prices: [1500]
     },
     {
-      token: gt.Symbol.LTC,
+      token: ge.Symbol.LTC,
+      action: ge.Process.BUY,
       average_price: 75,
-      actions: [{ [gt.Process.BUY]: 65 }, { [gt.Process.BUY]: 85 }]
+      prices: [65, 85]
     },
     {
-      token: gt.Symbol.AVAX,
+      token: ge.Symbol.AVAX,
+      action: ge.Process.BUY,
       average_price: 12.5,
-      actions: [{ [gt.Process.BUY]: 15 }, { [gt.Process.BUY]: 10 }]
+      prices: [15, 10]
     },
     {
-      token: gt.Symbol.SOL,
+      token: ge.Symbol.SOL,
+      action: ge.Process.SELL,
       average_price: 50,
-      actions: [{ [gt.Process.SELL]: 50 }]
+      prices: [50]
     },
     {
-      token: gt.Symbol.NEAR,
+      token: ge.Symbol.NEAR,
+      action: ge.Process.BUY,
       average_price: 1.5,
-      actions: [{ [gt.Process.BUY]: 1 }, { [gt.Process.BUY]: 2 }]
+      prices: [1, 2]
     }
   ];
 };

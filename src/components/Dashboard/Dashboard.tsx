@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { effect } from '@preact/signals-react';
 import state from '../../state';
+import { Status } from '../../enum/global';
 import TokenList from '../TokenList/TokenList';
 import s from './Dashboard.module.scss';
-import { Status } from '../../types/global';
 
 const { status } = state.system;
 

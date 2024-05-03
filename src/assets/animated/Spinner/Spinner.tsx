@@ -1,3 +1,5 @@
+import { colorBlue, colorYellow } from '../../../styles/vars';
+
 const Spinner = () => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
@@ -32,7 +34,7 @@ const Spinner = () => (
             repeatCount='indefinite'
           />
         </circle>
-        <circle fill='green' stroke='green' cx='27' cy='5' r='5'>
+        <circle fill={colorYellow} stroke={colorYellow} cx='27' cy='5' r='5'>
           <animate
             attributeName='cy'
             begin='0s'
@@ -54,7 +56,7 @@ const Spinner = () => (
             repeatCount='indefinite'
           />
         </circle>
-        <circle fill='blue' stroke='blue' cx='49' cy='50' r='5'>
+        <circle fill={colorBlue} stroke={colorBlue} cx='49' cy='50' r='5'>
           <animate
             attributeName='cy'
             begin='0s'

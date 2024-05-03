@@ -1,18 +1,18 @@
-import * as gt from '../../../types/global';
+import * as ge from '../../../enum/global';
 import state from '../../../state';
 
-export const hanbleList = (symbol: gt.Symbol) => {
-  return symbol === gt.Symbol.BTC
+export const hanbleList = (symbol: ge.Symbol) => {
+  return symbol === ge.Symbol.BTC
     ? state.tokens.btc
-    : symbol === gt.Symbol.ETH
+    : symbol === ge.Symbol.ETH
     ? state.tokens.eth
-    : symbol === gt.Symbol.LTC
+    : symbol === ge.Symbol.LTC
     ? state.tokens.ltc
-    : symbol === gt.Symbol.AVAX
+    : symbol === ge.Symbol.AVAX
     ? state.tokens.avax
-    : symbol === gt.Symbol.SOL
+    : symbol === ge.Symbol.SOL
     ? state.tokens.sol
-    : symbol === gt.Symbol.NEAR
+    : symbol === ge.Symbol.NEAR
     ? state.tokens.near
     : null;
 };

@@ -1,35 +1,42 @@
 import * as gc from '../config/global';
-import * as gt from '../types/global';
+// import * as gt from '../types/global';
+import * as ge from '../enum/global';
 import * as api from '../api';
 import state from '../state';
 
 const appEnv = process.env.REACT_APP_ENVIRONMENT;
 
 const { btc, eth, ltc, avax, sol, near } = state.tokens;
+const { INIT, PENDING, ACTIVE, ERROR } = ge.Status;
 const { date, time, dateAndTime } = gc.date.format;
 const { production, develop } = gc.system.appEnv;
 const { update } = state.system;
 
 export const loger = <V>(v: V, e?: string) => console[!e ? 'log' : 'error'](v);
 
+// ------ Process (Action):
+
+export const isBuy = (action: ge.Process) => action === ge.Process.BUY;
+export const isSell = (action: ge.Process) => action === ge.Process.SELL;
+
 // ------ Status:
 
 export const status = {
-  [gt.Status.INIT]: {
-    is: () => state.system.status.value === gt.Status.INIT,
-    set: () => (state.system.status.value = gt.Status.INIT)
+  [INIT]: {
+    is: () => state.system.status.value === INIT,
+    set: () => (state.system.status.value = INIT)
   },
-  [gt.Status.PENDING]: {
-    is: () => state.system.status.value === gt.Status.PENDING,
-    set: () => (state.system.status.value = gt.Status.PENDING)
+  [PENDING]: {
+    is: () => state.system.status.value === PENDING,
+    set: () => (state.system.status.value = PENDING)
   },
-  [gt.Status.ACTIVE]: {
-    is: () => state.system.status.value === gt.Status.ACTIVE,
-    set: () => (state.system.status.value = gt.Status.ACTIVE)
+  [ACTIVE]: {
+    is: () => state.system.status.value === ACTIVE,
+    set: () => (state.system.status.value = ACTIVE)
   },
-  [gt.Status.ERROR]: {
-    is: () => state.system.status.value === gt.Status.ERROR,
-    set: () => (state.system.status.value = gt.Status.ERROR)
+  [ERROR]: {
+    is: () => state.system.status.value === ERROR,
+    set: () => (state.system.status.value = ERROR)
   }
 };
 
@@ -111,7 +118,8 @@ export const updatePrices = async () => {
 
 export const updateActions = async () => {
   try {
-    state.actions.value = (await api.getActions()) as gt.ActionData[];
+    state.actions.value = await api.getActions();
+    // state.actions.value = (await api.getActions()) as gt.ActionData[];
     return true;
   } catch (e) {
     console.error('ERROR in updateActions:', e);

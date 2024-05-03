@@ -27,7 +27,7 @@ const App = () => {
     setTimeout(() => isLoading && status.value && setIsLoading(false), 2000);
   });
 
-  console.log('status.value', status.value);
+  console.log('status:', status.value);
 
   if (isLoading) return <Loader />;
 
