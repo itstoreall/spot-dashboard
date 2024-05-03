@@ -59,29 +59,29 @@ export const getInitData = async () => {
   isPrices && isActions && status.init.set();
 };
 
-const fetchPrices = async (appEnv: string) => {
-  const prices = await api.getPrices();
-  if (!prices || typeof prices === 'string') return;
-
-  switch (appEnv) {
-    case 'production':
-      btc.value = prices.bitcoin.usd;
-      eth.value = prices.ethereum.usd;
-      ltc.value = prices.litecoin.usd;
-      avax.value = prices['avalanche-2'].usd;
-      sol.value = prices.solana.usd;
-      near.value = prices.near.usd;
-      break;
-
-    default:
-      btc.value = 60000.08;
-      eth.value = 3000.08;
-      ltc.value = 80.08;
-      avax.value = 40.08;
-      sol.value = 130.08;
-      near.value = 5.08;
-      break;
+const fetchPricesProd = async () => {
+  try {
+    const prices = await api.getPrices();
+    if (!prices || typeof prices === 'string') return status.error.set();
+    btc.value = prices.bitcoin.usd;
+    eth.value = prices.ethereum.usd;
+    ltc.value = prices.litecoin.usd;
+    avax.value = prices['avalanche-2'].usd;
+    sol.value = prices.solana.usd;
+    near.value = prices.near.usd;
+  } catch (e) {
+    console.error('ERROR in fetchPrices:', e);
+    status.error.set();
   }
+};
+
+const fetchPricesDev = async () => {
+  btc.value = 60000.08;
+  eth.value = 3000.08;
+  ltc.value = 80.08;
+  avax.value = 40.08;
+  sol.value = 130.08;
+  near.value = 5.08;
 };
 
 export const updatePrices = async () => {
@@ -90,14 +90,14 @@ export const updatePrices = async () => {
   switch (appEnv) {
     // case develop:
     case production:
-      await fetchPrices(appEnv);
+      await fetchPricesProd();
       loger(`upd ${updTime} ${appEnv.slice(0, 4)}`);
       update.value = updTime;
       return true;
 
     // /*
     case develop:
-      await fetchPrices(appEnv);
+      await fetchPricesDev();
       loger(`upd ${updTime} ${appEnv.slice(0, 3)}`);
       update.value = updTime;
       return true;
@@ -110,9 +110,47 @@ export const updatePrices = async () => {
 };
 
 export const updateActions = async () => {
-  const actions = await api.getActions();
-  if (actions) {
-    state.actions.value = await api.getActions();
+  try {
+    state.actions.value = (await api.getActions()) as gt.ActionData[];
     return true;
-  } else return false;
+  } catch (e) {
+    console.error('ERROR in updateActions:', e);
+    status.error.set();
+    return false;
+  }
 };
+
+/*
+[
+  {
+    token: gt.Symbol.BTC,
+    average_price: 0,
+    actions: []
+  },
+  {
+    token: gt.Symbol.ETH,
+    average_price: 0,
+    actions: []
+  },
+  {
+    token: gt.Symbol.LTC,
+    average_price: 0,
+    actions: []
+  },
+  {
+    token: gt.Symbol.AVAX,
+    average_price: 0,
+    actions: []
+  },
+  {
+    token: gt.Symbol.SOL,
+    average_price: 0,
+    actions: []
+  },
+  {
+    token: gt.Symbol.NEAR,
+    average_price: 0,
+    actions: []
+  }
+];
+*/

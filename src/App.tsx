@@ -23,9 +23,11 @@ const App = () => {
     };
   }, []);
 
-  effect(() =>
-    setTimeout(() => isLoading && status.value && setIsLoading(false), 2000)
-  );
+  effect(() => {
+    setTimeout(() => isLoading && status.value && setIsLoading(false), 2000);
+  });
+
+  console.log('status.value', status.value);
 
   if (isLoading) return <Loader />;
 

@@ -15,6 +15,8 @@ const tokens = {
   near: signal(0)
 };
 
+// const getInitActions = () => {};
+
 const actions = signal<gt.ActionData[] | null>(null);
 
 const state = { system, tokens, actions };

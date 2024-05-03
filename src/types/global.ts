@@ -30,9 +30,10 @@ export enum Process {
 
 export type IntelDateTimeFormat = Intl.DateTimeFormatOptions;
 
-export type Action = { [key: string]: number };
+export type Action = { [key in Process]: number };
 
 export type ActionData = {
   token: Symbol;
-  action: Action[];
+  average_price: number;
+  actions: Action[];
 };

@@ -8,3 +8,24 @@ main.dashboardBlock {
   overflow-y: scroll;
   z-index: 10;
 }
+
+.errorBackdrop {
+  @extend %extends-flex-xy-center;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  height: $viewportHeight;
+
+  > p {
+    margin-bottom: 30px;
+  }
+
+  > button {
+    display: block;
+    border: none;
+    outline: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}

@@ -1,26 +1,72 @@
 import state from '../../state';
 import * as vars from '../../styles/vars';
 import * as gt from '../../types/global';
+import * as gu from '../../utils/global';
 import * as cfg from './config';
 import * as u from './utils';
 import SettingsIcon from '../../assets/icons/SettingsIcon';
 import s from './TokenList.module.scss';
 
 const { colorYellow: yellow, colorBlue: blue } = vars;
-const { actions } = state;
+// const { actions } = state;
 
 const TokenItem = ({ symbol }: { symbol: gt.Symbol }) => {
-  const action = actions.value!.find(item => item.token === symbol)?.action[0];
+  // ---
+
+  const price = u.hanbleList(symbol)?.value;
+
+  console.log('price', price);
+  // console.log('actions', actions.value);
+
+  // if (!price || !actions.value) return gu.status.error.set();
+
+  // console.log('gu.status.error', gu.status.error.is());
+  // console.log('u.hanbleList(symbol)', u.hanbleList(symbol)?.value);
+
+  // if (!actions.value)
+  // ---
+
+  // const action = actions.value!.find(item => item.token === symbol)?.actions[0];
+  // const action = actions.value!.find(item => item.token === symbol);
+
+  /*
   const entries = action ? Object.entries(action) : [['error', 0]];
-  const actionName = entries[0][0];
-  const actionPrice = entries[0][1];
+
+  console.log('action', action?.actions.length);
+  // const actionName = entries[2][1]; //
+  const actionName = action?.actions.length
+    ? Object.keys(action.actions[0])[0]
+    : '';
+
+  const actionPrice = entries[1][1]; // average_price
   const currentPrice = u.hanbleList(symbol)?.value;
   const priceChange = currentPrice && currentPrice - (actionPrice as number);
   const percent = (priceChange! / (actionPrice as number)) * 100;
   const SettingsIconColor = actionName === gt.Process.BUY ? yellow : blue;
+  */
 
-  // console.log('percent', typeof Number(percent.toFixed()) === 'number');
-  // console.log('Process', gt.Process, actionName);
+  // const getAveragePrice = (actions: { [key: string]: number }[]) => {
+  //   // if (Object.keys(buys[0])[0] === gt.Process.SELL) return
+  //   // console.log('actions', Object.keys(actions[0])[0]);
+  //   // u.hanbleList(symbol);
+  //   const action = Object.keys(actions[0])[0];
+  //   const sum = actions.reduce(
+  //     (acc, curr) => acc + curr[action as gt.Process],
+  //     0
+  //   );
+  //   const average = sum / actions.length;
+  //   console.log('average', average);
+  //   return average;
+  // };
+
+  // console.log('action', action);
+  // console.log('entries', entries);
+  // console.log('Object -->', Object.keys(action!.actions[0])[0]);
+  // console.log('Object -->', action!.actions[0]);
+  // console.log('actionName', actionName);
+  // console.log('actionPrice', actionPrice);
+
+  // getAveragePrice([{ buy: 15555 }, { buy: 25000 }]);
 
   return (
     <ul className={s.itemRowList}>
@@ -32,15 +78,18 @@ const TokenItem = ({ symbol }: { symbol: gt.Symbol }) => {
           <>{u.hanbleList(symbol)}</>
         </span>
       </li>
-      <li className={`${s.action} ${s[actionName]}`}>
-        <span>{actionPrice}</span>
+      {/* <li className={`${s.action} ${s[actionName]}`}> */}
+      <li className={`${s.action} ${s['']}`}>
+        <span>{0 as number}</span>
+        {/* <span>{actionPrice as number}</span> */}
       </li>
       <li className={s.percent}>
-        <span>{percent.toFixed() || 0}</span>
+        <span>{3 || 0}</span>
+        {/* <span>{percent.toFixed() || 0}</span> */}
       </li>
       <li className={s.settings}>
         <span onClick={() => console.log('click')}>
-          <SettingsIcon color={SettingsIconColor} />
+          {/* <SettingsIcon color={SettingsIconColor} /> */}
         </span>
       </li>
     </ul>
