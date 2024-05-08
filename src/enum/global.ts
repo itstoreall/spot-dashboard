@@ -27,3 +27,8 @@ export enum Process {
   BUY = 'buy',
   SELL = 'sell'
 }
+
+export enum ProcessStatus {
+  INVESTED = 'invested',
+  WITHDRAWN = 'withdrawn'
+}
