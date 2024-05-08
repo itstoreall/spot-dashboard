@@ -1,13 +1,16 @@
-import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+// import { ApolloProvider } from '@apollo/client';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/global.scss';
 import './styles/reset.scss';
 
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+const gqlUrl = process.env.REACT_APP_GQL_URL;
+
+console.log('gqlUrl', gqlUrl);
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4466/graphql',
+  uri: gqlUrl,
   cache: new InMemoryCache()
 });
 
