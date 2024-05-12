@@ -14,6 +14,7 @@ const { status } = state.system;
 
 const delay = Number(process.env.REACT_APP_UPDATE_DELAY || 600000);
 
+/*
 const GET_ACTIONS = gql`
   query GetActions {
     getActions {
@@ -29,6 +30,7 @@ const GET_ACTIONS = gql`
     }
   }
 `;
+// */
 
 /*
 const ADD_ACTION = gql`
@@ -48,15 +50,36 @@ const ADD_ACTION = gql`
 `;
 // */
 
+// /*
+const GET_ACTION_BY_ID = gql`
+  query GetActionByID($id: ID!) {
+    getActionByID(id: $id) {
+      tokenId
+      token
+      action
+      average_price
+      current_price
+      prices
+      percent
+      status
+    }
+  }
+`;
+// */
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // ---
 
-  const { data: d2 } = useQuery(GET_ACTIONS, { fetchPolicy: 'network-only' });
+  // const { data: d2 } = useQuery(GET_ACTIONS, { fetchPolicy: 'network-only' });
   // const [addAction, { data, loading, error }] = useMutation(ADD_ACTION);
+  const { data: dataByID } = useQuery(GET_ACTION_BY_ID, {
+    variables: { id: '663791707a83f53c632f907c' }
+  });
 
-  console.log('getActions --->', d2);
+  console.log('dataByID --->', dataByID);
+  // console.log('getActions --->', d2);
 
   // ---
 
