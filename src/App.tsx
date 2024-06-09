@@ -1,36 +1,39 @@
 import { useEffect, useState } from 'react';
-import { effect } from '@preact/signals-react';
-import { gql, useQuery } from '@apollo/client';
-// import * as gt from './types/global';
-import * as gu from './utils/global';
-// import * as ge from './enum/global';
+import { useQuery } from '@apollo/client';
+import GET_ACTIONS from './gql/getActions';
 import state from './state';
 import Loader from './components/Loader';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import Footer from './components/Footer';
 
-const { status } = state.system;
+const App = () => {
+  const [isActions, setIsActions] = useState(false);
 
-const delay = Number(process.env.REACT_APP_UPDATE_DELAY || 600000);
+  const { data, refetch } = useQuery(GET_ACTIONS);
 
-/*
-const GET_ACTIONS = gql`
-  query GetActions {
-    getActions {
-      id
-      tokenId
-      token
-      action
-      average_price
-      current_price
-      prices
-      percent
-      status
-    }
-  }
-`;
-// */
+  useEffect(() => {
+    if (!data) return;
+    // console.log('data', data?.getActions.isUpdated, data?.getActions.actions);
+    state.actions.value = data?.getActions.actions;
+    const timer = setTimeout(() => setIsActions(true), 2000);
+    return () => clearTimeout(timer);
+  }, [data]);
+
+  if (!isActions) return <Loader />;
+
+  const actions = data?.getActions;
+
+  return (
+    <>
+      <Header isUpdated={actions.isUpdated} />
+      <Dashboard data={actions} refetchActions={refetch} />
+      <Footer />
+    </>
+  );
+};
+
+export default App;
 
 /*
 const ADD_ACTION = gql`
@@ -48,58 +51,10 @@ const ADD_ACTION = gql`
     }
   }
 `;
-// */
 
-// /*
-const GET_ACTION_BY_ID = gql`
-  query GetActionByID($id: ID!) {
-    getActionByID(id: $id) {
-      tokenId
-      token
-      action
-      average_price
-      current_price
-      prices
-      percent
-      status
-    }
-  }
-`;
-// */
+const [addAction, { data, loading, error }] = useMutation(ADD_ACTION);
 
-const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  // ---
-
-  // const { data: d2 } = useQuery(GET_ACTIONS, { fetchPolicy: 'network-only' });
-  // const [addAction, { data, loading, error }] = useMutation(ADD_ACTION);
-  const { data: dataByID } = useQuery(GET_ACTION_BY_ID, {
-    variables: { id: '663791707a83f53c632f907c' }
-  });
-
-  console.log('dataByID --->', dataByID);
-  // console.log('getActions --->', d2);
-
-  // ---
-
-  useEffect(() => {
-    gu.getInitData();
-    // handleCreateAction();
-    const int = setInterval(() => gu.updatePrices(), delay);
-    return () => {
-      clearInterval(int);
-    };
-  }, []);
-
-  effect(() => {
-    setTimeout(() => isLoading && status.value && setIsLoading(false), 2000);
-  });
-
-  // ---
-
-  /*
-  const handleCreateAction = () => {
+const handleCreateAction = () => {
     addAction({
       variables: {
         input: {
@@ -116,25 +71,25 @@ const App = () => {
     });
   };
 
-  if (loading) return <p>Submitting...</p>;
-  if (error) return <p>An error occurred</p>;
-  // */
+if (loading) return <p>Submitting...</p>;
+if (error) return <p>An error occurred</p>;
+*/
 
-  // ---
+/*
+const GET_ACTION_BY_ID = gql`
+  query GetActionByID($id: ID!) {
+    getActionByID(id: $id) {
+      tokenId
+      token
+      action
+      average_price
+      current_price
+      prices
+      percent
+      status
+    }
+  }
+`;
 
-  // console.log('status:', status.value);
-
-  // if (loading) return <Loader />;
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <>
-      <Header />
-      <Dashboard />
-      <Footer />
-    </>
-  );
-};
-
-export default App;
+const { data: dataByID } = useQuery(GET_ACTION_BY_ID, { variables: { id: '663791707a83f53c632f907c' } });
+*/

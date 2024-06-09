@@ -7,6 +7,43 @@ main.dashboardBlock {
   height: $viewportHeight;
   overflow-y: scroll;
   z-index: 10;
+
+  .dashboard {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 40px 15px 0;
+    height: 60px;
+    // background-color: tomato;
+    background-color: #545454;
+    // background-color: #87b26e;
+
+    @include media-screen-orientation('min', $tablet) {
+      height: 70px;
+    }
+
+    .battonsBlock {
+      display: flex;
+      align-items: center;
+      // justify-content: flex-end;
+
+      // height: 70px;
+      // background-color: #838996;
+      // background-color: #6a974f;
+
+      > button {
+        height: 40px;
+        min-width: 40px;
+        // background-color: pink;
+
+        &.updateActionPrices {
+          > svg {
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
 }
 
 .errorBackdrop {

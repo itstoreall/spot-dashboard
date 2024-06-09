@@ -1,17 +1,37 @@
 @import './extends';
 @import './vars';
 
-@mixin media-screen($var, $w) {
+@mixin media-screen-orientation($var, $width, $orient: null) {
   @if $var == 'min' {
-    @media screen and (min-width: $w) {
-      @content;
+    @media screen and (min-width: $width) {
+      @if $orient == 'land' {
+        @media (orientation: landscape) {
+          @content;
+        }
+      } @else if $orient == 'port' {
+        @media (orientation: portrait) {
+          @content;
+        }
+      } @else {
+        @content;
+      }
     }
   } @else if $var == 'max' {
-    @media screen and (max-width: $w) {
-      @content;
+    @media screen and (max-width: $width) {
+      @if $orient == 'land' {
+        @media (orientation: landscape) {
+          @content;
+        }
+      } @else if $orient == 'port' {
+        @media (orientation: portrait) {
+          @content;
+        }
+      } @else {
+        @content;
+      }
     }
   }
-}
+} // @include media-screen('min', '600px', 'land'){}
 
 @mixin media-screen-range($minWidth, $maxWidth) {
   @media screen and (min-width: $minWidth) and (max-width: $maxWidth) {

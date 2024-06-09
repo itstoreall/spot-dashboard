@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { effect } from '@preact/signals-react';
 import state from '../../state';
-import { Status } from '../../enum/global';
+import * as gt from '../../types/global';
+import * as ge from '../../enum/global';
+import UpdateIcon from '../../assets/icons/UpdateIcon';
 import TokenList from '../TokenList/TokenList';
 import s from './Dashboard.module.scss';
 
 const { status } = state.system;
+const { ERROR } = ge.AppStatus;
 
 const ErrorBlock = () => (
   <div className={s.errorBackdrop}>
@@ -16,16 +19,29 @@ const ErrorBlock = () => (
   </div>
 );
 
-const Dashboard = () => {
+const Dashboard = ({ data, refetchActions }: gt.DashboardProps) => {
   const [isError, setIsError] = useState(false);
 
-  effect(() => status.value === Status.ERROR && !isError && setIsError(true));
+  effect(() => status.value === ERROR && !isError && setIsError(true));
+
+  const updateActions = () => {
+    refetchActions();
+    // console.log('* updateActions', data.isUpdated);
+  };
 
   if (isError) return <ErrorBlock />;
 
   return (
     <main className={s.dashboardBlock}>
-      <TokenList />
+      <div className={s.dashboard}>
+        <div className={s.battonsBlock}>
+          <button className={s.updateActionPrices} onClick={updateActions}>
+            <UpdateIcon />
+          </button>
+        </div>
+      </div>
+
+      <TokenList data={data} />
     </main>
   );
 };

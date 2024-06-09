@@ -6,19 +6,8 @@ const system = {
   update: signal('')
 };
 
-const tokens = {
-  btc: signal(0),
-  eth: signal(0),
-  ltc: signal(0),
-  avax: signal(0),
-  sol: signal(0),
-  near: signal(0)
-};
+const actions = signal<gt.Action[] | null>(null);
 
-// const getInitActions = () => {};
-
-const actions = signal<gt.ActionData[] | null>(null);
-
-const state = { system, tokens, actions };
+const state = { system, actions };
 
 export default state;
