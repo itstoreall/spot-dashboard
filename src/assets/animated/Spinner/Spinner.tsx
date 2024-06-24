@@ -1,4 +1,4 @@
-import { colorBlue, colorYellow } from '../../../styles/vars';
+import { colorBlue, colorYellow, colorRed } from '../../../styles/vars';
 
 const Spinner = () => (
   <svg
@@ -16,7 +16,7 @@ const Spinner = () => (
     />
     <g fillRule='evenodd'>
       <g transform='translate(1 1)' strokeWidth='2'>
-        <circle fill='red' stroke='red' cx='5' cy='50' r='5'>
+        <circle fill={colorRed} stroke={colorRed} cx='5' cy='50' r='5'>
           <animate
             attributeName='cy'
             begin='0s'

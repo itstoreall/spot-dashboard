@@ -1,4 +1,4 @@
-const UpdateIcon = () => {
+const FetchingIcon = ({ color }: { color: string }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -6,7 +6,7 @@ const UpdateIcon = () => {
       // height='96'
       viewBox='0 0 24 24'
     >
-      <g fill='none' stroke='black' strokeLinecap='round' strokeWidth='2'>
+      <g fill='none' stroke={color} strokeLinecap='round' strokeWidth='2'>
         <path
           strokeDasharray='2 4'
           strokeDashoffset='6'
@@ -59,4 +59,4 @@ const UpdateIcon = () => {
   );
 };
 
-export default UpdateIcon;
+export default FetchingIcon;

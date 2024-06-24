@@ -10,14 +10,22 @@ import Footer from './components/Footer';
 const App = () => {
   const [isActions, setIsActions] = useState(false);
 
-  const { data, refetch } = useQuery(GET_ACTIONS);
+  const { data, refetch } = useQuery(GET_ACTIONS, {
+    fetchPolicy: 'network-only'
+  });
+
+  // useEffect(() => {
+  //   console.log('loading', loading);
+  //   // setIsLoading(loading);
+  // }, [loading]);
 
   useEffect(() => {
     if (!data) return;
     // console.log('data', data?.getActions.isUpdated, data?.getActions.actions);
     state.actions.value = data?.getActions.actions;
-    const timer = setTimeout(() => setIsActions(true), 2000);
-    return () => clearTimeout(timer);
+    setIsActions(true);
+    // const timer = setTimeout(() => setIsActions(true), 2000);
+    // return () => clearTimeout(timer);
   }, [data]);
 
   if (!isActions) return <Loader />;

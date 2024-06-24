@@ -14,3 +14,5 @@ export const colorGreyDark = '#1d1d1d';
 
 export const colorYellow = '#ffdd00';
 export const colorBlue = '#0057b7';
+export const colorGreen = '#52e1af';
+export const colorRed = '#DA0037';

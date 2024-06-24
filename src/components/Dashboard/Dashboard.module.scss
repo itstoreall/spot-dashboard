@@ -11,12 +11,19 @@ main.dashboardBlock {
   .dashboard {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
 
     padding: 40px 15px 0;
     height: 60px;
     // background-color: tomato;
-    background-color: #545454;
+    background-color: $colorGreyDark;
     // background-color: #87b26e;
+
+    color: $colorGreen;
+    // color: #9f8adf;
+    // color: #4ca1a3;
 
     @include media-screen-orientation('min', $tablet) {
       height: 70px;
