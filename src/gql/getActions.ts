@@ -4,6 +4,7 @@ const GET_ACTIONS = gql`
   query GetActions {
     getActions {
       isUpdated
+      time
       actions {
         id
         tokenId
