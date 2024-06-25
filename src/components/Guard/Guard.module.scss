@@ -1,0 +1,28 @@
+@import '../../styles/imports';
+
+section.guard {
+  position: fixed;
+  min-width: 100%;
+  height: 100svh;
+  user-select: none;
+
+  .content {
+    height: 100%;
+
+    > input {
+      padding: 0;
+      margin: 0;
+      min-width: 100%;
+      height: 100%;
+      font-size: 32px;
+      font-weight: 600;
+      text-align: center;
+      color: $colorGreen;
+      caret-color: transparent;
+      border: 0;
+      outline: none;
+      background-color: $colorBlack;
+      cursor: none;
+    }
+  }
+}
