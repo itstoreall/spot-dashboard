@@ -1,17 +1,25 @@
 import { useState } from 'react';
 import s from './Guard.module.scss';
 
+type KeyHandlerProps = {
+  userKey: string | null;
+  setUserKey: (v: string) => void;
+};
+
 const admin = process.env.REACT_APP_ADMIN_KEY;
 
-const KeyHandler = ({ setKey }: any) => {
+const KeyHandler = ({ userKey, setUserKey }: KeyHandlerProps) => {
   return (
     <section className={s.guard}>
       <div className={s.content}>
+        <div className={s.displayKey}>
+          <span className={s.userKey}>{userKey}</span>
+        </div>
+
         <input
           type='tel'
-          // placeholder={'Key'}
-          onChange={e => setKey(e.target.value)}
-          maxLength={12}
+          onChange={e => setUserKey(e.target.value)}
+          maxLength={8}
         />
       </div>
     </section>
@@ -19,8 +27,9 @@ const KeyHandler = ({ setKey }: any) => {
 };
 
 const Guard = ({ children }: any) => {
-  const [key, setKey] = useState(null);
-  if (admin !== key) return <KeyHandler {...{ setKey }} />;
+  const [userKey, setUserKey] = useState<string | null>(null);
+  console.log('userKey', userKey);
+  if (admin !== userKey) return <KeyHandler {...{ userKey, setUserKey }} />;
   return children;
 };
 
