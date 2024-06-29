@@ -28,7 +28,6 @@ const KeyHandler = ({ userKey, setUserKey }: KeyHandlerProps) => {
 
 const Guard = ({ children }: any) => {
   const [userKey, setUserKey] = useState<string | null>(null);
-  console.log('userKey', userKey);
   if (admin !== userKey) return <KeyHandler {...{ userKey, setUserKey }} />;
   return children;
 };

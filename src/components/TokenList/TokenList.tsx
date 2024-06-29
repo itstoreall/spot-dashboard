@@ -1,15 +1,32 @@
+import { useState } from 'react';
 import * as vars from '../../styles/vars';
 import * as gu from '../../utils/global';
 import * as gt from '../../types/global';
+import * as t from './types';
 import SettingsIcon from '../../assets/icons/SettingsIcon';
+import UpdateActionBlock from '../UpdateActionBlock';
 import s from './TokenList.module.scss';
 
 const { colorYellow, colorBlue, colorGrey } = vars;
 
-const TokenItem = ({ action }: { action: gt.Action }) => {
+const TokenItem = ({
+  action,
+  isSettings,
+  setIsSettings,
+  setSettingsAction
+}: t.TokenItemProps) => {
+  // const [isSettings, setIsSettings] = useState(false);
+
+  // console.log('isSettings', isSettings);
+
   // const target = action?.average_price;
   // const priceChange = currentPrice! - target!;
   // const percent = (priceChange! / target!) * 100;
+
+  const handleSettings = () => {
+    setIsSettings(!isSettings);
+    setSettingsAction(!isSettings ? action : null);
+  };
 
   const settingsIconColor = gu.isBuy(action.action)
     ? colorYellow
@@ -31,7 +48,7 @@ const TokenItem = ({ action }: { action: gt.Action }) => {
       <li className={s.percent}>
         <span>{action.percent.toFixed() || 0}</span>
       </li>
-      <li className={s.settings}>
+      <li className={s.settings} onClick={handleSettings}>
         <span onClick={() => console.log('click')}>
           <SettingsIcon color={settingsIconColor} />
         </span>
@@ -40,18 +57,41 @@ const TokenItem = ({ action }: { action: gt.Action }) => {
   );
 };
 
-const TokenList = ({ data }: gt.TokenListProps) => (
-  <div className={s.tokenListBlock}>
-    <ul className={s.tokenList}>
-      {data.actions.map((action: gt.Action) => {
-        return (
-          <li key={action.token} className={s.tokenItem}>
-            <TokenItem action={action} />
-          </li>
-        );
-      })}
-    </ul>
-  </div>
-);
+const TokenList = ({ data }: gt.TokenListProps) => {
+  const [isSettings, setIsSettings] = useState(false);
+  const [settingsAction, setSettingsAction] = useState<gt.Action | null>(null);
+
+  // console.log('isSettings', isSettings);
+
+  return (
+    <>
+      {isSettings && settingsAction && (
+        <div className={s.formBlock}>
+          <UpdateActionBlock {...{ setIsSettings, settingsAction }} />
+        </div>
+      )}
+
+      <div className={s.tokenListBlock}>
+        <ul className={s.tokenList}>
+          {data.actions.map((action: gt.Action) => {
+            return (
+              <li key={action.token} className={s.tokenItem}>
+                <TokenItem
+                  {...{
+                    action,
+                    isSettings,
+                    setIsSettings,
+                    // settingsAction,
+                    setSettingsAction
+                  }}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </>
+  );
+};
 
 export default TokenList;

@@ -1,0 +1,165 @@
+@import '../../styles/imports';
+
+.updateActionBlock {
+  width: 100vw;
+  height: 100%;
+  background-color: $colorBlack;
+
+  .content {
+    padding: 40px 0 0;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 390px;
+    // background-color: teal;
+
+    // ------ Close button:
+
+    > button.closeButton {
+      @extend %extends-flex-xy-center;
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      width: 40px;
+      height: 40px;
+
+      > span {
+        width: 20px;
+        height: 20px;
+        background-color: $colorRed;
+        border-radius: 50%;
+      }
+    }
+
+    // ------ Preview:
+
+    > ul.previewActionList {
+      padding: 0 0 40px;
+      // background-color: skyblue;
+      // border-bottom: 1px solid;
+      border-bottom: 1px solid $colorGrey;
+
+      > li {
+        display: flex;
+        gap: 10px;
+
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+
+        > span {
+          &.title {
+            min-width: 80px;
+            color: $colorGrey;
+          }
+        }
+
+        // background-color: palevioletred;
+      }
+    }
+
+    // ------ Controls:
+
+    .controlsBlock {
+      position: relative;
+      padding: 40px 0 0;
+      width: 100%;
+      // width: 200px; // 157px
+      user-select: none;
+      // background-color: red;
+
+      .selectBlock {
+        display: flex;
+        gap: 20px;
+        // background-color: tomato;
+
+        .select {
+          position: relative;
+          // padding: 40px 10px;
+          // font-family: blue;
+          width: 50%;
+          // height: 30px;
+          margin-bottom: 20px;
+          // font-size: 14px;
+          font-weight: 600;
+          color: $colorWhite;
+          background-color: #f2f2f2;
+
+          > ul.selectMenu {
+            position: absolute;
+            left: 0;
+            bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px 0;
+            // width: calc(100% - 2px);
+            width: 100%;
+            // color: black;
+            background-color: $colorGreyDark;
+            // border: 1px solid $colorGrey;
+            // border: 1px solid black;
+            // border-radius: 3px;
+
+            > li {
+              padding: 0 0 0 15px;
+              text-transform: capitalize;
+
+              // &:not(:last-child) {
+              //   margin-bottom: 7px;
+              // }
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+
+          .selectButton {
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+            padding: 0 0 0 15px;
+            height: 40px;
+            text-transform: capitalize;
+            background-color: $colorGreyDark;
+            // gap: 5px;
+            // border: 1px solid $colorGrey;
+
+            &:hover {
+              cursor: pointer;
+            }
+
+            // > span.title {
+            //   @extend %extends-inline-ellipsis;
+            // }
+
+            &.open {
+              > svg {
+                transform: rotate(180deg);
+              }
+            }
+
+            > svg path {
+              fill: #000000;
+            }
+          }
+        }
+      }
+
+      .pricesInputBlock {
+        display: flex;
+        background-color: tomato;
+
+        > input {
+          background-color: green;
+          outline: none;
+          border: 0;
+        }
+
+        > button.addPriceButton {
+          background-color: blue;
+        }
+      }
+    }
+  }
+}

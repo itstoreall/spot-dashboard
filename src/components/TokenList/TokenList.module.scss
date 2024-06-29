@@ -1,5 +1,13 @@
 @import '../../styles/imports';
 
+.formBlock {
+  position: fixed;
+  top: 0;
+  padding: 40px 0 0;
+  height: 100%;
+  // background-color: tomato;
+}
+
 .tokenListBlock {
   padding: 0 0 41px;
 
