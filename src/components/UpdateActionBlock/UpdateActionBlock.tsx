@@ -42,11 +42,11 @@ const selectOptions: SelectOptions = {
 };
 
 const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
-  const { setIsSettings, settingsAction } = props;
+  const { settingsAction, setIsSettings } = props;
 
   // ------ Initial States:
 
-  const { action, status } = settingsAction;
+  const { action, status, prices } = settingsAction;
   const initActionState = { title: action, value: action };
   const initStatusState = { title: status, value: status };
 
@@ -54,10 +54,14 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
 
   const [spotAction, setSpotAction] = useState<gt.Action>(settingsAction);
   const [actionOpt, setActionOpt] = useState<Process>(initActionState);
-  const [newPrice, setNewPrice] = useState('');
+  const [actionPrices, setActionPrices] = useState(prices);
   const [statusOpt, setStatusOpt] = useState<Status>(initStatusState);
 
   const [updateAction, { data, loading, error }] = useMutation(UPDATE_ACTION);
+
+  useEffect(() => {
+    setSpotAction({ ...spotAction, action: actionOpt.title });
+  }, []);
 
   useEffect(() => {
     setSpotAction({ ...spotAction, action: actionOpt.title });
@@ -67,25 +71,39 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
     setSpotAction({ ...spotAction, status: statusOpt.title });
   }, [statusOpt]);
 
+  useEffect(() => {
+    setSpotAction({ ...spotAction, prices: actionPrices });
+  }, [actionPrices]);
+
   console.log('updateAction data:', data);
 
-  const handlePrices = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('e', e.target.value);
+  const handlePrices = (label: 'add' | 'del', newPrice: number) => {
+    if (label === 'add') {
+      setActionPrices([...actionPrices, Number(newPrice)]);
+    }
 
-    const { value } = e.target;
-    setNewPrice(value);
-
-    // setNewPrice(e.target.value);
-    // const { name, value } = e.target;
-    // setInput({
-    //   ...input,
-    //   [name]: name === 'prices' ? value.split(',').map(Number) : value
-    // });
+    if (label === 'del') {
+      const index = actionPrices.indexOf(newPrice);
+      let filteredPrices;
+      index !== -1
+        ? (filteredPrices = [
+            ...actionPrices.slice(0, index),
+            ...actionPrices.slice(index + 1)
+          ])
+        : (filteredPrices = [...actionPrices]);
+      setActionPrices(filteredPrices);
+    }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    updateAction({ variables: { id: '664e46a406c1609470f05670', spotAction } });
+  // e: FormEvent<HTMLFormElement>
+  const handleSubmit = () => {
+    // e.preventDefault();
+
+    console.log('spotAction', spotAction);
+
+    const payload = {};
+
+    // updateAction({ variables: { id: '664e46a406c1609470f05670', spotAction } });
   };
 
   if (loading) return <p>Loading...</p>;
@@ -99,10 +117,10 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
         </button>
 
         <ul className={s.previewActionList}>
-          <li>
+          {/* <li>
             <span className={s.title}>ID:</span>
             <span className={s.value}>{spotAction?.tokenId}</span>
-          </li>
+          </li> */}
           <li>
             <span className={s.title}>Token:</span>
             <span className={s.value}>{spotAction?.token}</span>
@@ -136,7 +154,7 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
               selectOptions,
               actionOpt,
               setActionOpt,
-              newPrice,
+              actionPrices,
               handlePrices,
               statusOpt,
               setStatusOpt,

@@ -6,9 +6,10 @@
   background-color: $colorBlack;
 
   .content {
-    padding: 40px 0 0;
+    position: relative;
+    padding: 12px 0 0;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
     max-width: 390px;
     // background-color: teal;
 
@@ -17,10 +18,12 @@
     > button.closeButton {
       @extend %extends-flex-xy-center;
       position: absolute;
-      top: 40px;
-      right: 40px;
+      top: 0;
+      // top: 30px;
+      right: -10px;
       width: 40px;
       height: 40px;
+      // background-color: green;
 
       > span {
         width: 20px;
@@ -61,7 +64,7 @@
 
     .controlsBlock {
       position: relative;
-      padding: 40px 0 0;
+      padding: 15px 0 0;
       width: 100%;
       // width: 200px; // 157px
       user-select: none;
@@ -69,7 +72,9 @@
 
       .selectBlock {
         display: flex;
-        gap: 20px;
+        gap: 15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid $colorGrey;
         // background-color: tomato;
 
         .select {
@@ -78,7 +83,7 @@
           // font-family: blue;
           width: 50%;
           // height: 30px;
-          margin-bottom: 20px;
+          margin-bottom: 15px;
           // font-size: 14px;
           font-weight: 600;
           color: $colorWhite;
@@ -92,21 +97,12 @@
             flex-direction: column;
             gap: 20px;
             padding: 20px 0;
-            // width: calc(100% - 2px);
             width: 100%;
-            // color: black;
             background-color: $colorGreyDark;
-            // border: 1px solid $colorGrey;
-            // border: 1px solid black;
-            // border-radius: 3px;
 
             > li {
               padding: 0 0 0 15px;
               text-transform: capitalize;
-
-              // &:not(:last-child) {
-              //   margin-bottom: 7px;
-              // }
 
               &:hover {
                 cursor: pointer;
@@ -146,19 +142,79 @@
         }
       }
 
-      .pricesInputBlock {
+      // ------ Prices:
+
+      .pricesBlock {
         display: flex;
-        background-color: tomato;
+        gap: 15px;
+        padding: 0 0 15px 0;
+        margin-bottom: 15px;
+        border-bottom: 1px solid $colorGrey;
+        // background-color: tomato;
 
-        > input {
-          background-color: green;
-          outline: none;
-          border: 0;
+        > ul.pricesList {
+          width: 50%;
+          // background-color: teal;
+
+          > li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0 0 15px;
+            height: 40px;
+            color: $colorWhite;
+            background-color: $colorGreyDark;
+
+            &:not(:last-child) {
+              margin-bottom: 15px;
+            }
+
+            // > span {} // *
+
+            > button.deletePriceButton {
+              @extend %extends-flex-xy-center;
+              min-width: 40px;
+              height: 40px;
+              background-color: $colorRed;
+            }
+          }
         }
 
-        > button.addPriceButton {
-          background-color: blue;
+        .inputBlock {
+          display: flex;
+          align-items: flex-end;
+          width: 50%;
+          // background-color: red;
+
+          > input {
+            display: block;
+            padding: 0 0 0 15px;
+            height: 40px;
+            width: 100%;
+            font-size: 16px;
+            outline: none;
+            border: 0;
+            color: $colorWhite;
+            background-color: $colorGreyDark;
+          }
+
+          > button.addPriceButton {
+            @extend %extends-flex-xy-center;
+            min-width: 40px;
+            height: 40px;
+            background-color: $colorGreen;
+          }
         }
+      }
+
+      > button.submitButton {
+        width: 100%;
+        height: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background-color: $colorBlue;
       }
     }
   }

@@ -27,13 +27,14 @@ export type UpdateActionBlockProps = {
 };
 
 export type UpdateActionFormProps = {
-  spotAction: gt.Action;
+  // spotAction: gt.Action;
   selectOptions: SelectOptions;
   actionOpt: Process;
   setActionOpt: (a: Process) => void;
-  newPrice: string;
-  handlePrices: ChangeEventHandler<HTMLInputElement>;
+  actionPrices: number[];
+  handlePrices: (label: 'add' | 'del', newPrice: number) => void;
   statusOpt: Status;
   setStatusOpt: (s: Status) => void;
-  handleSubmit: FormEventHandler<HTMLFormElement> | undefined;
+  handleSubmit: () => void;
+  // handleSubmit: FormEventHandler<HTMLFormElement> | undefined;
 };

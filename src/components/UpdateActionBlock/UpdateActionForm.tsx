@@ -1,7 +1,8 @@
 import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import * as t from './types';
-import * as ge from '../../enum/global';
+// import * as ge from '../../enum/global';
 import s from './UpdateActionBlock.module.scss';
+// import AddIcon from '../../assets/icons/AddIcon';
 
 // export type Process = { title: ge.Process; value: ge.Process };
 // export type Status = { title: ge.ProcessStatus; value: ge.ProcessStatus };
@@ -27,14 +28,14 @@ import s from './UpdateActionBlock.module.scss';
 const UpdateActionForm = (props: t.UpdateActionFormProps) => {
   const [isActionSelect, setIsActionSelect] = useState<boolean>(false);
   const [isStatusSelect, setIsStatusSelect] = useState<boolean>(false);
+  const [newPrice, setNewPrice] = useState('');
   // const [actionOpt, setActionOpt] = useState<Process>(formOptions.actions[0]);
 
   const {
-    spotAction,
     selectOptions,
     actionOpt,
     setActionOpt,
-    newPrice,
+    actionPrices,
     handlePrices,
     statusOpt,
     setStatusOpt,
@@ -46,13 +47,7 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
   const handleActionSelect = (is: boolean) => setIsActionSelect(is);
   const handleStatusSelect = (is: boolean) => setIsStatusSelect(is);
 
-  // const setInitSelectModel = () => {
-  //   const models: AI[] = [];
-  //   const keys = Object.keys(apiResponse) as (keyof ApiResponse)[];
-  //   keys.forEach(key => models.push(...apiResponse[key].map(el => el)));
-  //   handleAi(currentModel || models[0]);
-  //   setModels(models);
-  // };
+  // ------
 
   const changeActionOpt = (option: t.Process) => {
     handleActionSelect(false);
@@ -75,29 +70,43 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     // Allow only numbers, decimal point, and control keys
     if (
-      !/[0-9.]/.test(e.key) && // Allow numbers and decimal point
-      e.key !== 'Backspace' && // Allow backspace
-      e.key !== 'ArrowLeft' && // Allow left arrow
-      e.key !== 'ArrowRight' && // Allow right arrow
-      e.key !== 'Delete' && // Allow delete
-      e.key !== 'Tab' // Allow tab
+      !/[0-9.]/.test(e.key) &&
+      e.key !== 'Backspace' &&
+      e.key !== 'ArrowLeft' &&
+      e.key !== 'ArrowRight' &&
+      e.key !== 'Delete' &&
+      e.key !== 'Tab'
     ) {
       e.preventDefault();
     }
 
-    // Prevent multiple decimal points
     if (e.key === '.' && newPrice.includes('.')) {
       e.preventDefault();
     }
 
-    // Prevent 'e' and 'E'
     if (e.key.toLowerCase() === 'e') {
       e.preventDefault();
     }
   };
 
+  const handleNewPrice = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPrice(e.target.value);
+  };
+
+  const addPrice = () => {
+    handlePrices('add', Number(newPrice));
+    setNewPrice('');
+  };
+
+  const deletePrice = (price: number) => {
+    handlePrices('del', price);
+    setNewPrice('');
+  };
+
   const selectStyle = isActionSelect ? s.open : null;
   const selectButtonStyle = `${s.selectButton} ${selectStyle}`;
+
+  // console.log('actionPrices', actionPrices);
 
   return (
     <div className={s.controlsBlock}>
@@ -135,22 +144,35 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
         </div>
       </div>
 
-      <div className={s.pricesInputBlock}>
-        <input
-          type='number'
-          placeholder='0.00'
-          value={newPrice}
-          onChange={handlePrices}
-          onKeyDown={handleKeyDown}
-        />
+      <div className={s.pricesBlock}>
+        <ul className={s.pricesList}>
+          {actionPrices.map((price: number, idx: number) => (
+            <li key={idx}>
+              <span>{price}</span>
+              <button
+                className={s.deletePriceButton}
+                onClick={() => deletePrice(price)}
+              />
+            </li>
+          ))}
+        </ul>
 
-        <button
-          className={s.addPriceButton}
-          onClick={() => console.log('add a price')}
-        >
-          <span className={s.buttonTitle}>{'add'}</span>
-        </button>
+        <div className={s.inputBlock}>
+          <input
+            type='number'
+            placeholder='0.00'
+            value={newPrice}
+            onChange={handleNewPrice}
+            onKeyDown={handleKeyDown}
+          />
+
+          <button className={s.addPriceButton} onClick={addPrice} />
+        </div>
       </div>
+
+      <button className={s.submitButton} onClick={handleSubmit}>
+        submit
+      </button>
     </div>
   );
 
