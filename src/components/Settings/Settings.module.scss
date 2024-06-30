@@ -1,6 +1,6 @@
 @import '../../styles/imports';
 
-.updateActionBlock {
+.settings {
   width: 100vw;
   height: 100%;
   background-color: $colorBlack;
@@ -37,8 +37,6 @@
 
     > ul.previewActionList {
       padding: 0 0 40px;
-      // background-color: skyblue;
-      // border-bottom: 1px solid;
       border-bottom: 1px solid $colorGrey;
 
       > li {
@@ -55,8 +53,6 @@
             color: $colorGrey;
           }
         }
-
-        // background-color: palevioletred;
       }
     }
 
@@ -66,25 +62,18 @@
       position: relative;
       padding: 15px 0 0;
       width: 100%;
-      // width: 200px; // 157px
       user-select: none;
-      // background-color: red;
 
       .selectBlock {
         display: flex;
         gap: 15px;
         margin-bottom: 15px;
         border-bottom: 1px solid $colorGrey;
-        // background-color: tomato;
 
         .select {
           position: relative;
-          // padding: 40px 10px;
-          // font-family: blue;
           width: 50%;
-          // height: 30px;
           margin-bottom: 15px;
-          // font-size: 14px;
           font-weight: 600;
           color: $colorWhite;
           background-color: #f2f2f2;
@@ -112,14 +101,11 @@
 
           .selectButton {
             display: flex;
-            // justify-content: space-between;
             align-items: center;
             padding: 0 0 0 15px;
             height: 40px;
             text-transform: capitalize;
             background-color: $colorGreyDark;
-            // gap: 5px;
-            // border: 1px solid $colorGrey;
 
             &:hover {
               cursor: pointer;

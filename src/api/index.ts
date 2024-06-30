@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-// import * as gt from '../types/global';
 import * as ge from '../enum/global';
 import * as c from './config';
 import * as t from './types';

@@ -1,35 +1,11 @@
 import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import * as t from './types';
-// import * as ge from '../../enum/global';
-import s from './UpdateActionBlock.module.scss';
-// import AddIcon from '../../assets/icons/AddIcon';
-
-// export type Process = { title: ge.Process; value: ge.Process };
-// export type Status = { title: ge.ProcessStatus; value: ge.ProcessStatus };
-
-// type FormOptions = {
-//   actions: Process[];
-//   status: Status[];
-// };
-
-// const formOptions: FormOptions = {
-//   actions: [
-//     { value: ge.Process.INIT, title: ge.Process.INIT },
-//     { value: ge.Process.BUY, title: ge.Process.BUY },
-//     { value: ge.Process.SELL, title: ge.Process.SELL }
-//   ],
-//   status: [
-//     { value: ge.ProcessStatus.INIT, title: ge.ProcessStatus.INIT },
-//     { value: ge.ProcessStatus.INVESTED, title: ge.ProcessStatus.INVESTED },
-//     { value: ge.ProcessStatus.WITHDRAWN, title: ge.ProcessStatus.WITHDRAWN }
-//   ]
-// };
+import s from './Settings.module.scss';
 
 const UpdateActionForm = (props: t.UpdateActionFormProps) => {
   const [isActionSelect, setIsActionSelect] = useState<boolean>(false);
   const [isStatusSelect, setIsStatusSelect] = useState<boolean>(false);
   const [newPrice, setNewPrice] = useState('');
-  // const [actionOpt, setActionOpt] = useState<Process>(formOptions.actions[0]);
 
   const {
     selectOptions,
@@ -68,25 +44,17 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    // Allow only numbers, decimal point, and control keys
-    if (
+    const isKey =
       !/[0-9.]/.test(e.key) &&
       e.key !== 'Backspace' &&
       e.key !== 'ArrowLeft' &&
       e.key !== 'ArrowRight' &&
       e.key !== 'Delete' &&
-      e.key !== 'Tab'
-    ) {
-      e.preventDefault();
-    }
+      e.key !== 'Tab';
 
-    if (e.key === '.' && newPrice.includes('.')) {
-      e.preventDefault();
-    }
-
-    if (e.key.toLowerCase() === 'e') {
-      e.preventDefault();
-    }
+    if (isKey) e.preventDefault();
+    if (e.key === '.' && newPrice.includes('.')) e.preventDefault();
+    if (e.key.toLowerCase() === 'e') e.preventDefault();
   };
 
   const handleNewPrice = (e: ChangeEvent<HTMLInputElement>) => {
@@ -105,8 +73,6 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
 
   const selectStyle = isActionSelect ? s.open : null;
   const selectButtonStyle = `${s.selectButton} ${selectStyle}`;
-
-  // console.log('actionPrices', actionPrices);
 
   return (
     <div className={s.controlsBlock}>
@@ -146,15 +112,21 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
 
       <div className={s.pricesBlock}>
         <ul className={s.pricesList}>
-          {actionPrices.map((price: number, idx: number) => (
-            <li key={idx}>
-              <span>{price}</span>
-              <button
-                className={s.deletePriceButton}
-                onClick={() => deletePrice(price)}
-              />
+          {actionPrices.length ? (
+            actionPrices.map((price: number, idx: number) => (
+              <li key={idx}>
+                <span>{price}</span>
+                <button
+                  className={s.deletePriceButton}
+                  onClick={() => deletePrice(price)}
+                />
+              </li>
+            ))
+          ) : (
+            <li>
+              <span>{0}</span>
             </li>
-          ))}
+          )}
         </ul>
 
         <div className={s.inputBlock}>
@@ -175,35 +147,6 @@ const UpdateActionForm = (props: t.UpdateActionFormProps) => {
       </button>
     </div>
   );
-
-  /*
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type='text'
-        name='action'
-        placeholder='Action'
-        value={input.action}
-        onChange={handleChange}
-      />
-      <input
-        type='text'
-        name='prices'
-        placeholder='Prices (comma-separated)'
-        value={input.prices.join(',')}
-        onChange={handleChange}
-      />
-      <input
-        type='text'
-        name='status'
-        placeholder='Status'
-        value={input.status}
-        onChange={handleChange}
-      />
-      <button type='submit'>Update Action</button>
-    </form>
-  );
-  */
 };
 
 export default UpdateActionForm;

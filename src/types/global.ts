@@ -1,12 +1,10 @@
-import {
-  ApolloQueryResult,
-  OperationVariables
-} from '@apollo/client/core/types';
+import * as client from '@apollo/client/core/types';
 import * as ge from '../enum/global';
 
 export type IntelDateTimeFormat = Intl.DateTimeFormatOptions;
 
 export type Action = {
+  id: string;
   tokenId: number;
   token: string;
   action: ge.Process;
@@ -20,8 +18,8 @@ export type Action = {
 export type DashboardProps = {
   data: { isUpdated: boolean; actions: Action[] };
   refetchActions: (
-    variables?: Partial<OperationVariables> | undefined
-  ) => Promise<ApolloQueryResult<any>>;
+    variables?: Partial<client.OperationVariables> | undefined
+  ) => Promise<client.ApolloQueryResult<any>>;
 };
 
 export type TokenListProps = Pick<DashboardProps, 'data'>;

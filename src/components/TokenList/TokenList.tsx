@@ -4,27 +4,16 @@ import * as gu from '../../utils/global';
 import * as gt from '../../types/global';
 import * as t from './types';
 import SettingsIcon from '../../assets/icons/SettingsIcon';
-import UpdateActionBlock from '../UpdateActionBlock';
+import Settings from '../Settings';
 import s from './TokenList.module.scss';
 
 const { colorYellow, colorBlue, colorGrey } = vars;
 
-const TokenItem = ({
-  action,
-  isSettings,
-  setIsSettings,
-  setSettingsAction
-}: t.TokenItemProps) => {
-  // const [isSettings, setIsSettings] = useState(false);
-
-  // console.log('isSettings', isSettings);
-
-  // const target = action?.average_price;
-  // const priceChange = currentPrice! - target!;
-  // const percent = (priceChange! / target!) * 100;
+const TokenItem = (props: t.TokenItemProps) => {
+  const { action, isSettings, handleIsSettings, setSettingsAction } = props;
 
   const handleSettings = () => {
-    setIsSettings(!isSettings);
+    handleIsSettings(!isSettings);
     setSettingsAction(!isSettings ? action : null);
   };
 
@@ -61,13 +50,13 @@ const TokenList = ({ data }: gt.TokenListProps) => {
   const [isSettings, setIsSettings] = useState(false);
   const [settingsAction, setSettingsAction] = useState<gt.Action | null>(null);
 
-  // console.log('isSettings', isSettings);
+  const handleIsSettings = (b: boolean) => setIsSettings(b);
 
   return (
     <>
       {isSettings && settingsAction && (
         <div className={s.formBlock}>
-          <UpdateActionBlock {...{ setIsSettings, settingsAction }} />
+          <Settings {...{ settingsAction, handleIsSettings }} />
         </div>
       )}
 
@@ -80,8 +69,7 @@ const TokenList = ({ data }: gt.TokenListProps) => {
                   {...{
                     action,
                     isSettings,
-                    setIsSettings,
-                    // settingsAction,
+                    handleIsSettings,
                     setSettingsAction
                   }}
                 />

@@ -1,24 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import UPDATE_ACTION from '../../gql/updateAction';
 import * as ge from '../../enum/global';
 import * as gt from '../../types/global';
-// import * as t from './types';
 import * as t from './types';
 import UpdateActionForm from './UpdateActionForm';
-import s from './UpdateActionBlock.module.scss';
-
-// const initInputState = {
-//   tokenId: 0,
-//   token: '',
-//   action: '',
-//   average_price: 0,
-//   current_price: 0,
-//   prices: [],
-//   percent: 0,
-//   status: ''
-// };
+import s from './Settings.module.scss';
 
 export type Process = { title: ge.Process; value: ge.Process };
 export type Status = { title: ge.ProcessStatus; value: ge.ProcessStatus };
@@ -41,8 +29,8 @@ const selectOptions: SelectOptions = {
   ]
 };
 
-const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
-  const { settingsAction, setIsSettings } = props;
+const Settings = (props: t.UpdateActionBlockProps) => {
+  const { settingsAction, handleIsSettings } = props;
 
   // ------ Initial States:
 
@@ -57,10 +45,15 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
   const [actionPrices, setActionPrices] = useState(prices);
   const [statusOpt, setStatusOpt] = useState<Status>(initStatusState);
 
-  const [updateAction, { data, loading, error }] = useMutation(UPDATE_ACTION);
+  const [updateAction] = useMutation(UPDATE_ACTION);
 
   useEffect(() => {
-    setSpotAction({ ...spotAction, action: actionOpt.title });
+    const prices =
+      spotAction.prices.length === 1 && spotAction.prices[0] === 0
+        ? []
+        : spotAction.prices;
+    setActionPrices(prices);
+    setSpotAction({ ...spotAction, action: actionOpt.title, prices });
   }, []);
 
   useEffect(() => {
@@ -72,10 +65,37 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
   }, [statusOpt]);
 
   useEffect(() => {
-    setSpotAction({ ...spotAction, prices: actionPrices });
+    const priceSum: number = actionPrices.length
+      ? actionPrices.reduce((acc, val) => acc + val, 0)
+      : 0;
+
+    const averagePrice = priceSum ? priceSum / actionPrices.length : 0;
+    const percent = calculatePercentage(averagePrice, spotAction.current_price);
+    const priceParts = spotAction.current_price.toString().split('.');
+
+    const fixedValue =
+      priceParts[0].length > 1 ? 2 : Number(priceParts[0]) === 0 ? 8 : 3;
+
+    setSpotAction({
+      ...spotAction,
+      prices: actionPrices,
+      average_price: Number(averagePrice.toFixed(fixedValue)),
+      percent
+    });
   }, [actionPrices]);
 
-  console.log('updateAction data:', data);
+  // ------
+
+  const calculatePercentage = (averagePrice: number, price: number) => {
+    let rawPercent = 0;
+    rawPercent = averagePrice
+      ? ((price - averagePrice) / averagePrice) * 100
+      : 0;
+
+    const fixedValue = rawPercent.toFixed();
+    const numberValue = Number(fixedValue);
+    return typeof numberValue === 'number' ? numberValue : 0;
+  };
 
   const handlePrices = (label: 'add' | 'del', newPrice: number) => {
     if (label === 'add') {
@@ -95,32 +115,35 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
     }
   };
 
-  // e: FormEvent<HTMLFormElement>
-  const handleSubmit = () => {
-    // e.preventDefault();
+  const handleSubmit = async () => {
+    const payload = {
+      tokenId: spotAction.tokenId,
+      token: spotAction.token,
+      action: spotAction.action as ge.Process,
+      average_price: spotAction.average_price,
+      current_price: spotAction.current_price,
+      prices: spotAction.prices,
+      percent: spotAction.percent,
+      status: spotAction.status as ge.ProcessStatus
+    };
 
-    console.log('spotAction', spotAction);
+    const variables = { id: settingsAction.id, input: payload };
+    const { data } = await updateAction({ variables });
 
-    const payload = {};
-
-    // updateAction({ variables: { id: '664e46a406c1609470f05670', spotAction } });
+    data?.updateAction.isUpdated && handleIsSettings(false);
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
   return (
-    <div className={s.updateActionBlock}>
+    <div className={s.settings}>
       <div className={s.content}>
-        <button className={s.closeButton} onClick={() => setIsSettings(false)}>
+        <button
+          className={s.closeButton}
+          onClick={() => handleIsSettings(false)}
+        >
           <span />
         </button>
 
         <ul className={s.previewActionList}>
-          {/* <li>
-            <span className={s.title}>ID:</span>
-            <span className={s.value}>{spotAction?.tokenId}</span>
-          </li> */}
           <li>
             <span className={s.title}>Token:</span>
             <span className={s.value}>{spotAction?.token}</span>
@@ -167,4 +190,4 @@ const UpdateActionBlock = (props: t.UpdateActionBlockProps) => {
   );
 };
 
-export default UpdateActionBlock;
+export default Settings;

@@ -21,7 +21,6 @@
       // background-color: green;
 
       &:not(:last-child) {
-        // margin-bottom: 5px;
         border-bottom: 1px solid $colorGreyDark;
       }
 
@@ -53,6 +52,7 @@
 
           &.symbol {
             min-width: 65px;
+            font-weight: 600;
           }
 
           &.price {
@@ -75,8 +75,6 @@
 
           &.settings {
             width: 100%;
-            // justify-content: center;
-            // background-color: teal;
 
             > span {
               @extend %extends-flex-xy-center;

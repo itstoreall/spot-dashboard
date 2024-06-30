@@ -17,13 +17,8 @@ main.dashboardBlock {
 
     padding: 40px 15px 0;
     height: 60px;
-    // background-color: tomato;
-    background-color: $colorGreyDark;
-    // background-color: #87b26e;
-
     color: $colorGreen;
-    // color: #9f8adf;
-    // color: #4ca1a3;
+    background-color: $colorGreyDark;
 
     @include media-screen-orientation('min', $tablet) {
       height: 70px;
@@ -32,16 +27,10 @@ main.dashboardBlock {
     .battonsBlock {
       display: flex;
       align-items: center;
-      // justify-content: flex-end;
-
-      // height: 70px;
-      // background-color: #838996;
-      // background-color: #6a974f;
 
       > button {
         height: 40px;
         min-width: 40px;
-        // background-color: pink;
 
         &.updateActionPrices {
           > svg {
