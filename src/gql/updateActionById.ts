@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-const UPDATE_ACTION = gql`
-  mutation updateAction($id: ID!, $input: ActionInput!) {
-    updateAction(id: $id, input: $input) {
+const UPDATE_ACTION_BY_ID = gql`
+  mutation updateActionById($id: ID!, $input: ActionInput!) {
+    updateActionById(id: $id, input: $input) {
       isUpdated
       time
       actions {
@@ -21,4 +21,4 @@ const UPDATE_ACTION = gql`
   }
 `;
 
-export default UPDATE_ACTION;
+export default UPDATE_ACTION_BY_ID;

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import UPDATE_ACTION from '../../gql/updateAction';
+import UPDATE_ACTION_BY_ID from '../../gql/updateActionById';
 import * as ge from '../../enum/global';
 import * as gt from '../../types/global';
 import * as t from './types';
@@ -45,7 +45,7 @@ const Settings = (props: t.UpdateActionBlockProps) => {
   const [actionPrices, setActionPrices] = useState(prices);
   const [statusOpt, setStatusOpt] = useState<Status>(initStatusState);
 
-  const [updateAction] = useMutation(UPDATE_ACTION);
+  const [updateActionById] = useMutation(UPDATE_ACTION_BY_ID);
 
   useEffect(() => {
     const prices =
@@ -87,8 +87,8 @@ const Settings = (props: t.UpdateActionBlockProps) => {
   // ------
 
   const calculatePercentage = (averagePrice: number, price: number) => {
-    let rawPercent = 0;
-    rawPercent = averagePrice
+    // let rawPercent = 0;
+    const rawPercent = averagePrice
       ? ((price - averagePrice) / averagePrice) * 100
       : 0;
 
@@ -128,9 +128,9 @@ const Settings = (props: t.UpdateActionBlockProps) => {
     };
 
     const variables = { id: settingsAction.id, input: payload };
-    const { data } = await updateAction({ variables });
+    const { data } = await updateActionById({ variables });
 
-    data?.updateAction.isUpdated && handleIsSettings(false);
+    data?.updateActionById.isUpdated && handleIsSettings(false);
   };
 
   return (
